@@ -159,7 +159,11 @@ Java Web Token
 ##### Fail
 
 * Status: `400`
-
+```json
+{
+  "message": "Fail to log in message"
+}
+```
 ---
 
 ### Logging Out
