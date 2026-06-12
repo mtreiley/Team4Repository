@@ -328,8 +328,8 @@ Auto deletes subtasks.
 
 #### Request
 
-* Method: `POST`
-* URL: `/todo`
+* Method: `DELETE` (Auto deletes subtasks)
+* URL: `/api/todo`
 * Body:
 
 ```json
@@ -384,7 +384,7 @@ Auto deletes subtasks.
 #### Request
 
 * Method: `PUT`
-* URL: `/todo`
+* URL: `/api/subtask`
 * Body:
 
 ```json
@@ -411,8 +411,8 @@ Auto deletes subtasks.
 
 #### Request
 
-* Method: `POST`
-* URL: `/subtask`
+* Method: `DELETE`
+* URL: `/api/subtask`
 * Body:
 
 ```json
