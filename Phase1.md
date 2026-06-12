@@ -140,8 +140,8 @@ Java Web Token
 #### Request
 
 * Method: `POST`
-* URL: `/user`
-* Body:
+* URL: `/api/auth/login`
+* Body:{username, password}
 
 ```json
 {
