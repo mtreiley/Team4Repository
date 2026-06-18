@@ -1,0 +1,31 @@
+package com.teamtetra.todoapp.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.teamtetra.todoapp.entity.Todo;
+import com.teamtetra.todoapp.exception.AddTodoFailure;
+import com.teamtetra.todoapp.service.TodoService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+public class TodoController{
+    private final TodoService todoService;
+
+    @PostMapping("/todo")
+    public ResponseEntity<Void> addTodo(@RequestBody Todo todo){
+        todoService.addTodo(todo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+
+    @ExceptionHandler(AddTodoFailure.class)
+    public ResponseEntity<String> handleAddTodoFailure(AddTodoFailure exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+}

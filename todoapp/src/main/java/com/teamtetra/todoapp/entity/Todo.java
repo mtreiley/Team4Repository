@@ -16,14 +16,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Todos")
+//@Table(name = "Todos")
 public class Todo {
-    @Column
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Column(nullable = false)
-    private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long todo_id; //! Primary Key
+
+    @Column(nullable = false, unique = true)
+    private String title;
     @Column(nullable = false)
     private int completed;
     // @ManyToOne
