@@ -17,15 +17,19 @@ import lombok.RequiredArgsConstructor;
 public class TodoService {
     private final TodoRepo todoRepo;
 
-    public void addTodo(Todo todo){
+    // public void addTodo(Todo todo){
 
-        if (todoRepo.findById(todo.getTodoId()).isPresent())
-        {
-            throw new AddTodoFailure("Duplicate found");
-        }
-        else{
-            todoRepo.save(todo);
-        }
+    //     if (todoRepo.findById(todo.getTodoId()).isPresent())
+    //     {
+    //         throw new AddTodoFailure("Duplicate found");
+    //     }
+    //     else{
+    //         todoRepo.save(todo);
+    //     }
+    // }
+
+    public void addTodo(Todo todo){
+        todoRepo.save(todo);
     }
 
     public void deleteTodo(Todo todo){
