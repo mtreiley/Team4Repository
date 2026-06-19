@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.RegistrationFailure;
+import com.teamtetra.todoapp.exception.LoginFailure;
 import com.teamtetra.todoapp.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Void> loginUser(@RequestBody User user){
+        userService.loginUser(user);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
+    }
+
     @ExceptionHandler(RegistrationFailure.class)
     public ResponseEntity<String> handleRegistrationFailure(RegistrationFailure exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(LoginFailure.class)
+    public ResponseEntity<String> handleLoginFailure(LoginFailure exception){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 }

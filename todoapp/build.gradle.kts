@@ -39,3 +39,37 @@ dependencies {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+tasks.register("booting") {
+
+    doLast {
+        println("Houston, I think I'm bout to blow...")
+		Thread.sleep(4000)
+		println(
+            """
+                  \o/              \o/
+                   |                |
+                \  |  /          \  |  /
+
+                      .------.
+                    .'  o  o  '.
+                   /   .----.   \
+                  |   /      \   |
+                  |  |  OOOO  |  |
+                  |  |  OOOO  |  |
+                   \  \______/  /
+                    '.  ____  .'
+                      '-.__.-'
+
+                ;_;    AAAAAAAAAHHHHH    ;_;
+            """.trimIndent()
+        )
+		Thread.sleep(1000)
+		print("\u001b[H\u001b[2J\u001b[3J")
+		System.out.flush()
+    }
+}
+
+tasks.named("bootRun") {
+    dependsOn("booting")
+}
