@@ -21,12 +21,16 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long todo_id; //! Primary Key
+    private Long todoId; //! Primary Key
+
+    //@ManyToOne(optional = false)
+    @JoinColumn(name = "userId", nullable = false)
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     private String title;
     @Column(nullable = false)
-    private int completed;
+    private boolean completed;
     // @ManyToOne
     // @JoinColumn(name = "id", nullable = false)
     // private User user;
