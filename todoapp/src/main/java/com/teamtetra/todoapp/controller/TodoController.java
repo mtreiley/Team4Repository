@@ -2,8 +2,10 @@ package com.teamtetra.todoapp.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,18 @@ public class TodoController{
     public ResponseEntity<Void> addTodo(@RequestBody Todo todo){
         todoService.addTodo(todo);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+
+    @DeleteMapping("/todo")
+    public ResponseEntity<Void> deleteTodo(@RequestBody Todo todo){
+        todoService.deleteTodo(todo);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @PutMapping("/todo")
+    public ResponseEntity<Void> updateTodo(@RequestBody Todo todo){
+        todoService.updateTodo(todo);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @ExceptionHandler(AddTodoFailure.class)
