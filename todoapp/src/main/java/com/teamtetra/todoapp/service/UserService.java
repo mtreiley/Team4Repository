@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.RegistrationFailure;
+import com.teamtetra.todoapp.exception.LoginFailure;
 import com.teamtetra.todoapp.repo.UserRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,14 @@ public class UserService {
 
 
         userRepo.save(user);
+    }
+
+    public void loginUser(User user){
+        User registeredUser = userRepo.findByUsername(user.getUsername())
+            .orElseThrow(() -> new LoginFailure("Invalid login credentials"));
+        if(!(user.getPassword().equals(registeredUser.getPassword()))){
+            throw new LoginFailure("Invalid login credentials");
+        }
     }
 
     public boolean isCorrectLength(String credential){
