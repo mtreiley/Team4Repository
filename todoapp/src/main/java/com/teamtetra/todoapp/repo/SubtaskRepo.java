@@ -10,4 +10,7 @@ import com.teamtetra.todoapp.entity.Subtask;
 @Repository
 public interface SubtaskRepo extends JpaRepository<Subtask, Long> {
     Optional<Subtask> findByTitle(String credential);
+
+
+    
 }
