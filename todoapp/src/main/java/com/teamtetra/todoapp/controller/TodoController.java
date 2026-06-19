@@ -1,15 +1,19 @@
 package com.teamtetra.todoapp.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teamtetra.todoapp.entity.Todo;
+import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.AddTodoFailure;
 import com.teamtetra.todoapp.service.TodoService;
 
@@ -36,6 +40,12 @@ public class TodoController{
     public ResponseEntity<Void> updateTodo(@RequestBody Todo todo){
         todoService.updateTodo(todo);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @GetMapping("/todo")
+    public ResponseEntity<List<Todo>> getTodos(@RequestBody User user){
+        List<Todo> todoList = todoService.getTodos(user);
+        return ResponseEntity.status(HttpStatus.OK).body(todoList);
     }
 
     @ExceptionHandler(AddTodoFailure.class)

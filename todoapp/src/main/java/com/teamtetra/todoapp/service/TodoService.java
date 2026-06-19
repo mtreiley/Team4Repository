@@ -1,8 +1,11 @@
 package com.teamtetra.todoapp.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.teamtetra.todoapp.entity.Todo;
+import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.AddTodoFailure; //Switch later
 import com.teamtetra.todoapp.exception.LoginFailure;
 import com.teamtetra.todoapp.repo.TodoRepo;
@@ -16,13 +19,24 @@ public class TodoService {
 
     public void addTodo(Todo todo){
 
-        //Todo validation logic
-        todoRepo.save(todo);
+        if (todoRepo.findById(todo.getTodoId()).isPresent())
+        {
+            throw new AddTodoFailure("Duplicate found");
+        }
+        else{
+            todoRepo.save(todo);
+        }
     }
 
     public void deleteTodo(Todo todo){
 
-        todoRepo.delete(todo);
+        if (todoRepo.findById(todo.getTodoId()).isPresent())
+        {
+            todoRepo.delete(todo);
+        }
+        else{
+            throw new AddTodoFailure("Could not find matching todo id");
+        }
     }
 
     public void updateTodo(Todo todo){
@@ -34,13 +48,24 @@ public class TodoService {
             todoRepo.save(todo);
         }
         else{
-             throw new AddTodoFailure("Could not find matching todo id");
+            throw new AddTodoFailure("Could not find matching todo id");
         }
 
-        //todo wasn't found
+    }
 
-        //todo was found
+    public List<Todo> getTodos(User user){
 
+        List<Todo> todoList = todoRepo.findByUserId(user.getId());
+
+        if (todoList.isEmpty())
+        {
+            throw new AddTodoFailure("Could not find matching todo id");
+        }
+        else{
+            return todoList;
+        }
 
     }
+
+
 }
