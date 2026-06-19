@@ -29,17 +29,6 @@ public class SubtaskService {
             );
         }
 
-        // Description validation
-        if (subtask.getDescription() == null || subtask.getDescription().isBlank()) {
-            throw new RegistrationFailure("Description cannot be empty");
-        }
-
-        // Description: letters, numbers, and spaces only
-        if (!subtask.getDescription().matches("^[a-zA-Z0-9 ]+$")) {
-            throw new RegistrationFailure(
-                "Description can only contain letters, numbers, and spaces"
-            );
-        }
 
         subtaskRepo.save(subtask);
     }
