@@ -9,6 +9,7 @@ import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.AddTodoFailure; //Switch later
 import com.teamtetra.todoapp.exception.LoginFailure;
 import com.teamtetra.todoapp.repo.TodoRepo;
+import com.teamtetra.todoapp.repo.UserRepo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,20 +17,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepo todoRepo;
-
-    // public void addTodo(Todo todo){
-
-    //     if (todoRepo.findById(todo.getTodoId()).isPresent())
-    //     {
-    //         throw new AddTodoFailure("Duplicate found");
-    //     }
-    //     else{
-    //         todoRepo.save(todo);
-    //     }
-    // }
+    private final UserRepo userRepo;
 
     public void addTodo(Todo todo){
-        todoRepo.save(todo);
+        //check for existing user
+        if (userRepo.findByUserId(todo.getUserId()).isPresent())
+        {
+            todoRepo.save(todo);
+        }
+        else{
+            throw new AddTodoFailure("Could not find matching user id");
+        }
     }
 
     public void deleteTodo(Todo todo){
@@ -59,14 +57,21 @@ public class TodoService {
 
     public List<Todo> getTodos(User user){
 
-        List<Todo> todoList = todoRepo.findByUserId(user.getId());
-
-        if (todoList.isEmpty())
+        //check for existing user
+        if (userRepo.findByUserId(user.getUserId()).isPresent())
         {
-            throw new AddTodoFailure("Could not find matching todo id");
+            List<Todo> todoList = todoRepo.findByUserId(user.getUserId());
+
+            if (todoList.isEmpty())
+            {
+                throw new AddTodoFailure("Could not find any todos for matching user id");
+            }
+            else{
+                return todoList;
+            }
         }
         else{
-            return todoList;
+            throw new AddTodoFailure("Could not find matching user id");
         }
 
     }
