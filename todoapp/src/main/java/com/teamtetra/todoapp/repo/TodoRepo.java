@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.teamtetra.todoapp.entity.Todo;
-import com.teamtetra.todoapp.entity.User;
 
 @Repository
 public interface TodoRepo extends JpaRepository<Todo, Long> {

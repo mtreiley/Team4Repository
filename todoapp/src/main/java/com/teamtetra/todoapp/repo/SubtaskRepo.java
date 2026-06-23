@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.teamtetra.todoapp.entity.Subtask;
-import com.teamtetra.todoapp.entity.Todo;
 
 @Repository
 public interface SubtaskRepo extends JpaRepository<Subtask, Long> {
