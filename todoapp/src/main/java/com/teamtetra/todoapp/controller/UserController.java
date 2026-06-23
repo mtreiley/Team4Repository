@@ -11,6 +11,7 @@ import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.RegistrationFailure;
 import com.teamtetra.todoapp.exception.LoginFailure;
 import com.teamtetra.todoapp.service.UserService;
+import com.teamtetra.todoapp.utility.JwtUtility;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     
     private final UserService userService;
+    private final JwtUtility jwtUtility;
 
     @PostMapping("/register")
     public ResponseEntity<Void> registerNewUser(@RequestBody User user){
@@ -27,9 +29,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> loginUser(@RequestBody User user){
+    public ResponseEntity<String> loginUser(@RequestBody User user){
         userService.loginUser(user);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
+        String token = jwtUtility.generateToken(user);
+        return ResponseEntity.ok(token);
     }
 
     @ExceptionHandler(RegistrationFailure.class)

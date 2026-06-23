@@ -7,14 +7,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.teamtetra.todoapp.entity.Subtask;
-import com.teamtetra.todoapp.entity.Subtask;
 import com.teamtetra.todoapp.entity.Todo;
 import com.teamtetra.todoapp.exception.AddSubtaskFailure;
-import com.teamtetra.todoapp.exception.AddTodoFailure;
-import com.teamtetra.todoapp.exception.RegistrationFailure;
 import com.teamtetra.todoapp.repo.SubtaskRepo;
 import com.teamtetra.todoapp.repo.TodoRepo;
-import com.teamtetra.todoapp.repo.SubtaskRepo;
 
 import lombok.RequiredArgsConstructor;
 
