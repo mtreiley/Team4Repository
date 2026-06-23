@@ -54,12 +54,12 @@ public class TodoService {
 
     }
 
-    public List<Todo> getTodos(User user){
+    public List<Todo> getTodos(Long userId){
 
         //check for existing user
-        if (userRepo.findByUserId(user.getUserId()).isPresent())
+        if (userRepo.findByUserId(userId).isPresent())
         {
-            List<Todo> todoList = todoRepo.findByUserId(user.getUserId());
+            List<Todo> todoList = todoRepo.findByUserId(userId);
 
             if (todoList.isEmpty())
             {

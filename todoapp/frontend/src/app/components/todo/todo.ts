@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TodoService } from '../../services/todo-service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-todo',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './todo.html',
   styleUrl: './todo.css',
 })
-export class Todo {}
+export class Todo {
+
+  todoService = inject(TodoService)
+
+  getTodos(){
+    this.todoService.getTodos(1);
+  }
+  
+
+}

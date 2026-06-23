@@ -1,4 +1,4 @@
-package com.teamtetra.todoapp.utility;
+/*package com.teamtetra.todoapp.utility;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  * If valid, the user's ID and username are attached to the request as attributes
  * so controllers can access them without re-parsing the token.
  */
-@Component
+/*@Component
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
 
@@ -55,4 +55,4 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         return true;
     }
-}
+}*/
