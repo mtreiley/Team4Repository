@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user){
-        userService.loginUser(user);
+    public ResponseEntity<String> loginUser(@RequestBody User credentials){
+        User user = userService.loginUser(credentials);
         String token = jwtUtility.generateToken(user);
         return ResponseEntity.ok(token);
     }

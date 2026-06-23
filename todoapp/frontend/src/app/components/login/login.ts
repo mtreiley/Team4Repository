@@ -5,9 +5,10 @@ import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {
 
@@ -31,7 +32,7 @@ export class Login {
       next: (token) => {
         // Store the JWT returned in the response body
         this.authService.setToken(token);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         const message =
