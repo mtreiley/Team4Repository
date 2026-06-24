@@ -1,4 +1,4 @@
-/*package com.teamtetra.todoapp.utility;
+package com.teamtetra.todoapp.utility;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class JwtUtility {
                 We catch IllegalArgumentException to handle issues with the token not being present or empty,
                 any any other issue that would cause the parser to be unable to interact with it
             */
-            /*return false;
+            return false;
         }
     }
 
@@ -77,4 +77,4 @@ public class JwtUtility {
 
 
 
-}*/
+}

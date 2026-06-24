@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-    //private final AuthInterceptor authInterceptor;
+    private final AuthInterceptor authInterceptor;
 
     /**
      * Configures Cross-Origin Resource Sharing (CORS) rules for the application.
@@ -37,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
      * Any request that doesn't match an excluded path must include a valid JWT
      * in the Authorization header.
      */
-    /*@Override
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")          // protect everything by default
@@ -45,5 +45,5 @@ public class WebConfig implements WebMvcConfigurer {
                         "/register",
                         "/login"
                 );
-    }*/
+    }
 }
