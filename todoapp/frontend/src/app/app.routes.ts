@@ -24,7 +24,7 @@ export const routes: Routes = [
   {
       path: 'dashboard',
       component: Dashboard,
-      canActivate: [authGuard]
+      canActivate: [authGuard],
       children: [
           {
               path: 'todo',
@@ -36,3 +36,4 @@ export const routes: Routes = [
           }
       ]
   }
+]
