@@ -10,37 +10,27 @@ export class TodoService {
     private http = inject(HttpClient);
     private apiBaseUrl = environment.apiBaseUrl;
 
-    private todoSubject: BehaviorSubject<Todo>;
+    private todoSubject: BehaviorSubject<Todo[]>;
 
-    todo$: Observable<Todo>;
+    todo$: Observable<Todo[]>;
 
-    private emptyTodo = {
-        todoId: 0,
-        userId: 0,
-        title: '',
-        completed: false
-    }
+    private emptyTodos: Todo[] = [];
     
     constructor(){
-        this.todoSubject = new BehaviorSubject<Todo>({
-            todoId: 0,
-            userId: 0,
-            title: '',
-            completed: false
-        });
+        this.todoSubject = new BehaviorSubject<Todo[]>([]);
         this.todo$ = this.todoSubject.asObservable();
     }
 
 
     getTodos(userId: number) {
-        this.http.get<Todo>(`${this.apiBaseUrl}/todo`, {
+        this.http.get<Todo[]>(`${this.apiBaseUrl}/todo`, {
         params: { userId }
         })
         .pipe(
             tap(todoData => this.todoSubject.next(todoData)),
             catchError(error => {
                 console.log(`Something went wrong: ${error}`)
-                this.todoSubject.next(this.emptyTodo)
+                this.todoSubject.next(this.emptyTodos)
                 return of(null);
             })
         ).subscribe()
