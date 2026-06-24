@@ -1,1 +1,12 @@
 <p>todo works!</p>
+<button (click) = "getTodos()" >Load Todos</button>
+
+@if(this.todoService.todo$ | async; as todos){
+    <ul>
+    @for (todo of todos; track todo.todoId) {
+        <li>{{ todo.title }} - {{ todo.completed }}</li>
+    } @empty {
+        <li>No items found in the list.</li>
+    }
+    </ul>
+}

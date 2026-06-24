@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.teamtetra.todoapp.entity.Todo;
-import com.teamtetra.todoapp.entity.User;
-import com.teamtetra.todoapp.exception.AddTodoFailure; //Switch later
-import com.teamtetra.todoapp.repo.TodoRepo;
+import com.teamtetra.todoapp.exception.AddTodoFailure;
+import com.teamtetra.todoapp.repo.TodoRepo; //Switch later
 import com.teamtetra.todoapp.repo.UserRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -54,12 +53,12 @@ public class TodoService {
 
     }
 
-    public List<Todo> getTodos(User user){
+    public List<Todo> getTodos(Long userId){
 
         //check for existing user
-        if (userRepo.findByUserId(user.getUserId()).isPresent())
+        if (userRepo.findByUserId(userId).isPresent())
         {
-            List<Todo> todoList = todoRepo.findByUserId(user.getUserId());
+            List<Todo> todoList = todoRepo.findByUserId(userId);
 
             if (todoList.isEmpty())
             {
@@ -74,6 +73,4 @@ public class TodoService {
         }
 
     }
-
-
 }
