@@ -32,12 +32,25 @@ public class UserService {
         userRepo.save(user);
     }
 
-    public void loginUser(User user){
-        User registeredUser = userRepo.findByUsername(user.getUsername())
-            .orElseThrow(() -> new LoginFailure("Invalid login credentials"));
-        if(!(user.getPassword().equals(registeredUser.getPassword()))){
-            throw new LoginFailure("Invalid login credentials");
+    public User loginUser(User credentials){
+        if (isNull(credentials.getUsername()) || isNull(credentials.getPassword())) {
+            throw new LoginFailure("Username and password are required");
         }
+        Optional<User> userOptional = userRepo.findByUsername(credentials.getUsername());
+        //     .orElseThrow(() -> new LoginFailure("Invalid login credentials"));
+        // if(!(user.getPassword().equals(registeredUser.getPassword()))){
+        //     throw new LoginFailure("Invalid login credentials");
+        // }
+        if (userOptional.isEmpty()) {
+            throw new LoginFailure("Invalid username or password");
+        }
+        User user = userOptional.get();
+
+        if (!user.getPassword().equals(credentials.getPassword())) {
+            throw new LoginFailure("Invalid username or password");
+        }
+
+        return user;
     }
 
     public boolean isCorrectLength(String credential){
