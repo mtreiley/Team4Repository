@@ -1,12 +1,32 @@
 <p>todo works!</p>
-<button (click) = "getTodos()" >Load Todos</button>
+
+<form>
+    <label for="title">Title:</label>
+    <input #title type="text" id="title" name="title" required>
+    <button type="button" (click)="addTodo(title.value); title.value = ''">Add todo</button>
+</form>
 
 @if(this.todoService.todo$ | async; as todos){
     <ul>
     @for (todo of todos; track todo.todoId) {
-        <li>{{ todo.title }} - {{ todo.completed }}</li>
+        <li>
+            @if (editingTodoId === todo.todoId) {
+                <form (ngSubmit)="saveTodo(todo)">
+                    <input type="text" name="editedTitle" [(ngModel)]="editedTitle" required >
+                    <button type="submit">Save</button>
+                    <button type="button" (click)="cancelEdit()">Cancel</button>
+                </form>
+            } @else {
+                <input type="checkbox" #completedCheckbox [checked]="todo.completed" (change)="toggleTodoCompleted(todo, completedCheckbox.checked)" >
+                {{ todo.title }}
+                <button type="button" (click)="editTodo(todo)">Edit</button>
+                <button type="button" (click)="deleteTodo(todo)">Delete</button>
+            }
+        </li>
     } @empty {
         <li>No items found in the list.</li>
     }
     </ul>
 }
+
+

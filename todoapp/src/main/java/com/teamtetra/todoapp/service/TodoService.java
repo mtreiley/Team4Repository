@@ -17,10 +17,11 @@ public class TodoService {
     private final TodoRepo todoRepo;
     private final UserRepo userRepo;
 
-    public void addTodo(Todo todo){
+    public void addTodo(Todo todo, Long userId){
         //check for existing user
-        if (userRepo.findByUserId(todo.getUserId()).isPresent())
+        if (userRepo.findByUserId(userId).isPresent())
         {
+            todo.setUserId(userId);
             todoRepo.save(todo);
         }
         else{
@@ -62,7 +63,7 @@ public class TodoService {
 
             if (todoList.isEmpty())
             {
-                throw new AddTodoFailure("Could not find any todos for matching user id");
+                throw new AddTodoFailure("Could not find any todos for matching user id" + userId);
             }
             else{
                 return todoList;

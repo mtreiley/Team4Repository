@@ -1,6 +1,5 @@
-export interface Todo {
+export interface TodoModel {
     todoId: number,
-    userId: number,
     title: string,
     completed: boolean
 }
