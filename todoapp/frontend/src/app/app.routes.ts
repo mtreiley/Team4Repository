@@ -4,25 +4,35 @@ import { Register } from './components/register/register';
 import { Dashboard } from './components/dashboard/dashboard';
 import { Subtask } from './components/subtask/subtask';
 import { Todo } from './components/todo/todo';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
-    {
-        path:'',
-        redirectTo: 'dashboard',
-        pathMatch:'full'
-    },
-    {
-        path: 'dashboard',
-        component: Dashboard,
-        children: [
-            {
-                path: 'todo',
-                component: Todo
-            },
-            {
-                path: 'subtask',
-                component: Subtask
-            }
-        ]
-    }
-];
+  
+  { 
+    path: '', 
+    redirectTo: 'login', 
+    pathMatch: 'full' 
+  },
+  { 
+    path: 'login', 
+    component: Login 
+  },
+  { 
+    path: 'register', 
+    component: Register 
+  },
+  {
+      path: 'dashboard',
+      component: Dashboard,
+      canActivate: [authGuard]
+      children: [
+          {
+              path: 'todo',
+              component: Todo
+          },
+          {
+              path: 'subtask',
+              component: Subtask
+          }
+      ]
+  }
