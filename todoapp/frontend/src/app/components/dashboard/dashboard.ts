@@ -91,4 +91,8 @@ export class Dashboard implements OnInit {
       this.todoService.getTodos();
     });
   }
+
+    logout(): void {
+  this.authService.logout();
+  }
 }
