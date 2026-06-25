@@ -5,7 +5,7 @@
     <h1 class="app-title">To-do or not To-do</h1>
     <div class="user-greeting">
       Hello, {{ username }}! &nbsp;
-      <a routerLink="/login" class="logout-link">Log out?</a>
+      <a class="logout-link" (click)="logout()">Log out?</a>
     </div>
   </header>
 
