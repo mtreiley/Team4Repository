@@ -1,5 +1,5 @@
 <section aria-labelledby="register-heading">
-  <h1 id="register-heading">Register</h1>
+  <h1 id="register-heading">To-do or not To-do</h1>
 
     <!-- 
        [formGroup]="registerForm" is a property binding that connects this <form> element
@@ -11,22 +11,16 @@
     -->
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div>
-      <label for="username">Username</label>
-        <!-- 
-           formControlName="username" links this input to the 'username' FormControl
-           inside the parent FormGroup. Angular syncs the input's value with the control
-           automatically (two-way binding managed internally by ReactiveFormsModule). 
-
-           NOTE: the autocomplete attribute is not Angular specific: it is used by the browser to suggest
-                 values for the input field
-        -->
-      <input id="username" type="text" autocomplete="username" formControlName="username" />
+      <h1 class="title-inside"> Register </h1>
+    </div>
+    <div>
+      <label class="sr-only" for="username">Username</label>
+      <input id="username" type="text" placeholder="Username" autocomplete="username" formControlName="username" />
     </div>
 
     <div>
-      <label for="password">Password</label>
-      <!-- formControlName="password" links this input to the 'password' FormControl. -->
-      <input id="password" type="password" autocomplete="new-password" formControlName="password" />
+      <label class="sr-only" for="password">Password</label>
+      <input id="password" type="password" placeholder="Password" autocomplete="new-password" formControlName="password" />
     </div>
 
     <button type="submit">Register</button>
