@@ -1,15 +1,18 @@
 <section aria-labelledby="login-heading">
-  <h1 id="login-heading">Login</h1>
+  <h1 id="login-heading">To-do or not To-do</h1>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
-      <label for="username">Username</label>
-      <input id="username" type="text" autocomplete="username" formControlName="username" />
+      <h1 class="title-inside" id="login-heading-inside">Login</h1>
+    </div>
+    <div>
+      <label class="sr-only" for="username">Username</label>
+      <input id="username" type="text" placeholder="Username" autocomplete="username" formControlName="username" />
     </div>
 
     <div>
-      <label for="password">Password</label>
-      <input id="password" type="password" autocomplete="current-password" formControlName="password" />
+      <label class="sr-only" for="password">Password</label>
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password" formControlName="password" />
     </div>
 
     <button type="submit">Login</button>
