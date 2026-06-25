@@ -22,18 +22,20 @@ export const routes: Routes = [
     component: Register 
   },
   {
-      path: 'dashboard',
-      component: Dashboard,
-      canActivate: [authGuard],
-      children: [
-          {
-              path: 'todo',
-              component: Todo
-          },
-          {
-              path: 'subtask',
-              component: Subtask
-          }
-      ]
+    path: 'dashboard',
+    component: Dashboard,
+    canActivate: [authGuard],
+    children: [
+        {
+            path: 'todo',
+            component: Todo,
+            children: [
+              {
+                path: 'subtask',
+                component: Subtask
+              }
+            ]
+        }
+    ]
   }
 ]

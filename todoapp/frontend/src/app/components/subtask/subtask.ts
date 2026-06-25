@@ -1,8 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { SubtaskService } from '../../services/subtask-service';
 import { AsyncPipe } from '@angular/common';
 import { SubtaskModel } from '../../models/subtask-model';
+import { TodoModel } from '../../models/todo-model';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-subtask',
@@ -10,39 +12,44 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './subtask.html',
   styleUrl: './subtask.css',
 })
-export class Subtask implements OnInit{
+export class Subtask implements OnInit {
 
-  subtaskService = inject(SubtaskService)
+  @Input() todo!: TodoModel;
+
+  subtaskService = inject(SubtaskService);
+  subtasks$!: Observable<SubtaskModel[]>;
 
   editingSubtaskId: number | null = null;
   editedTitle = '';
 
   ngOnInit(): void {
-    this.subtaskService.getSubtasks();
+    this.subtasks$ = this.subtaskService.getSubjectForTodo(this.todo.todoId);
+    this.subtaskService.getSubtasks(this.todo);
   }
 
-  addSubtask(title: string){
+  addSubtask(title: string): void {
     const subtask: Partial<SubtaskModel> = {
+      todoId: this.todo.todoId,
       title: title,
       completed: false
     };
     this.subtaskService.addSubtask(subtask).subscribe(() => {
-      this.subtaskService.getSubtasks();
+      this.subtaskService.getSubtasks(this.todo);
     });
   }
 
-  deleteSubtask(subtask: SubtaskModel){
+  deleteSubtask(subtask: SubtaskModel): void {
     this.subtaskService.deleteSubtask(subtask).subscribe(() => {
-      this.subtaskService.getSubtasks();
+      this.subtaskService.getSubtasks(this.todo);
     });
   }
 
-  editSubtask(subtask: SubtaskModel) {
+  editSubtask(subtask: SubtaskModel): void {
     this.editingSubtaskId = subtask.subtaskId;
     this.editedTitle = subtask.title;
   }
 
-  saveSubtask(subtask: SubtaskModel) {
+  saveSubtask(subtask: SubtaskModel): void {
     const updatedSubtask: SubtaskModel = {
       ...subtask,
       title: this.editedTitle
@@ -50,23 +57,22 @@ export class Subtask implements OnInit{
     this.subtaskService.updateSubtask(updatedSubtask).subscribe(() => {
       this.editingSubtaskId = null;
       this.editedTitle = '';
-      this.subtaskService.getSubtasks();
+      this.subtaskService.getSubtasks(this.todo);
     });
   }
 
-  cancelEdit() {
+  cancelEdit(): void {
     this.editingSubtaskId = null;
     this.editedTitle = '';
   }
 
-  toggleSubtaskCompleted(subtask: SubtaskModel, completed: boolean){
+  toggleSubtaskCompleted(subtask: SubtaskModel, completed: boolean): void {
     const updatedSubtask: SubtaskModel = {
       ...subtask,
       completed: completed
     };
-
     this.subtaskService.updateSubtask(updatedSubtask).subscribe(() => {
-      this.subtaskService.getSubtasks();
+      this.subtaskService.getSubtasks(this.todo);
     });
   }
 

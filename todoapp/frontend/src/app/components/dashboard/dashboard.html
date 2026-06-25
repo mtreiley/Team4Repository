@@ -1,6 +1,3 @@
-<p>dashboard works!</p>
-<app-todo></app-todo>
-<app-subtask></app-subtask>
 <div class="page">
 
   <!-- ── Top bar ── -->
@@ -12,38 +9,6 @@
     </div>
   </header>
 
-  <!-- ── Todo list ── -->
-  <main class="todo-list">
-
-    @for (todo of (todoService.todo$ | async); track todo.todoId) {
-
-      <div class="todo-card">
-
-        <!-- Todo row -->
-        <div class="card-row">
-          <div class="card-content">
-            <span class="todo-title">{{ todo.title }}</span>
-            <span class="todo-status" [class.done]="todo.completed">
-              {{ todo.completed ? 'Completed' : 'In progress' }}
-            </span>
-          </div>
-          <div class="card-actions">
-            <button class="btn-edit" (click)="onEdit(todo)">Edit</button>
-            <button class="btn-delete" (click)="onDelete(todo)">Delete</button>
-          </div>
-        </div>
-
-        <!-- Subtasks (placeholder until SubtaskService is wired up) -->
-        <div class="subtask-list">
-          <p class="no-subtasks">No subtasks yet.</p>
-        </div>
-
-      </div>
-
-    } @empty {
-      <p class="empty-state">No tasks yet. Add one to get started!</p>
-    }
-
-  </main>
+  <app-todo></app-todo>
 
 </div>

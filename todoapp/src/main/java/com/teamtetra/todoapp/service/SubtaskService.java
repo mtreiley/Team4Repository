@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.teamtetra.todoapp.entity.Subtask;
-import com.teamtetra.todoapp.entity.Todo;
 import com.teamtetra.todoapp.exception.AddSubtaskFailure;
 import com.teamtetra.todoapp.repo.SubtaskRepo;
 import com.teamtetra.todoapp.repo.TodoRepo;
@@ -56,20 +55,12 @@ public class SubtaskService {
 
     }
 
-    public List<Subtask> getSubtasks(Todo todo){
+    public List<Subtask> getSubtasks(Long todoId){
 
         //check for existing user
-        if (todoRepo.findByTodoId(todo.getTodoId()).isPresent())
+        if (todoRepo.findByTodoId(todoId).isPresent())
         {
-            List<Subtask> subtaskList = subtaskRepo.findByTodoId(todo.getTodoId());
-
-            if (subtaskList.isEmpty())
-            {
-                throw new AddSubtaskFailure("Could not find any subtasks for matching todo id");
-            }
-            else{
-                return subtaskList;
-            }
+            return subtaskRepo.findByTodoId(todoId);
         }
         else{
             throw new AddSubtaskFailure("Could not find matching todo id");

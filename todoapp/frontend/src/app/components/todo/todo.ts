@@ -3,10 +3,11 @@ import { TodoService } from '../../services/todo-service';
 import { AsyncPipe } from '@angular/common';
 import { TodoModel } from '../../models/todo-model';
 import { FormsModule } from '@angular/forms';
+import { Subtask } from "../subtask/subtask";
 
 @Component({
   selector: 'app-todo',
-  imports: [AsyncPipe, FormsModule],
+  imports: [AsyncPipe, FormsModule, Subtask],
   templateUrl: './todo.html',
   styleUrl: './todo.css',
 })

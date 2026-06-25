@@ -51,6 +51,48 @@
   text-decoration: underline;
 }
 
+.add-todo {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem 0;
+}
+
+.add-todo-form,
+.edit-todo-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 720px;
+}
+
+.add-todo-form {
+  color: var(--color-title);
+}
+
+.add-todo-form input,
+.edit-todo-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+}
+
+.add-todo-form button {
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-card);
+  color: var(--color-text);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-todo-form button:hover {
+  filter: brightness(1.08);
+}
+
 /* ── Todo list ── */
 .todo-list {
   display: flex;

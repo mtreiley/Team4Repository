@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teamtetra.todoapp.entity.Subtask;
-import com.teamtetra.todoapp.entity.Todo;
-import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.AddSubtaskFailure;
-import com.teamtetra.todoapp.exception.RegistrationFailure;
 import com.teamtetra.todoapp.service.SubtaskService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,8 +44,8 @@ public class SubtaskController {
     }
 
     @GetMapping("/subtask")
-    public ResponseEntity<List<Subtask>> getSubtasks(@RequestBody Todo todo){
-        List<Subtask> subtaskList = subtaskService.getSubtasks(todo);
+    public ResponseEntity<List<Subtask>> getSubtasks(@RequestParam Long todoId){
+        List<Subtask> subtaskList = subtaskService.getSubtasks(todoId);
         return ResponseEntity.status(HttpStatus.OK).body(subtaskList);
     }
 

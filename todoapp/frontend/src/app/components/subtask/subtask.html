@@ -1,31 +1,32 @@
-<p>subtask works!</p>
-<p>todo works!</p>
-
-<form>
+<form class="add-subtask-form">
     <label for="title">Title:</label>
     <input #title type="text" id="title" name="title" required>
     <button type="button" (click)="addSubtask(title.value); title.value = ''">Add subtask</button>
 </form>
 
-@if(this.subtaskService.subtask$ | async; as subtasks){
+@if(subtasks$ | async; as subtasks){
     <ul>
     @for (subtask of subtasks; track subtask.subtaskId) {
         <li>
             @if (editingSubtaskId === subtask.subtaskId) {
-                <form (ngSubmit)="saveSubtask(subtask)">
+                <form class="edit-subtask-form" (ngSubmit)="saveSubtask(subtask)">
                     <input type="text" name="editedTitle" [(ngModel)]="editedTitle" required >
-                    <button type="submit">Save</button>
-                    <button type="button" (click)="cancelEdit()">Cancel</button>
+                    <div class="subtask-actions">
+                        <button class="btn-edit" type="submit">Save</button>
+                        <button class="btn-delete" type="button" (click)="cancelEdit()">Cancel</button>
+                    </div>
                 </form>
             } @else {
-                <input type="checkbox" #completedCheckbox [checked]="subtask.completed" (change)="toggleSubtaskCompleted(subtask, completedCheckbox.checked)" >
-                {{ subtask.title }}
-                <button type="button" (click)="editSubtask(subtask)">Edit</button>
-                <button type="button" (click)="deleteSubtask(subtask)">Delete</button>
+                <label class="subtask-title">
+                    <input type="checkbox" #completedCheckbox [checked]="subtask.completed" (change)="toggleSubtaskCompleted(subtask, completedCheckbox.checked)" >
+                    {{ subtask.title }}
+                </label>
+                <div class="subtask-actions">
+                    <button class="btn-edit" type="button" (click)="editSubtask(subtask)">Edit</button>
+                    <button class="btn-delete" type="button" (click)="deleteSubtask(subtask)">Delete</button>
+                </div>
             }
         </li>
-    } @empty {
-        <li>No items found in the list.</li>
-    }
+    } 
     </ul>
 }
