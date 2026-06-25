@@ -18,6 +18,7 @@ import com.teamtetra.todoapp.entity.User;
 import com.teamtetra.todoapp.exception.AddTodoFailure;
 import com.teamtetra.todoapp.service.TodoService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,8 +27,9 @@ public class TodoController{
     private final TodoService todoService;
 
     @PostMapping("/todo")
-    public ResponseEntity<Void> addTodo(@RequestBody Todo todo){
-        todoService.addTodo(todo);
+    public ResponseEntity<Void> addTodo(@RequestBody Todo todo, HttpServletRequest request){
+        String userIdFromToken = (String) request.getAttribute("userId");
+        todoService.addTodo(todo, Long.parseLong(userIdFromToken));
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
@@ -44,8 +46,9 @@ public class TodoController{
     }
 
     @GetMapping("/todo")
-    public ResponseEntity<List<Todo>> getTodos(@RequestParam Long userId){
-        List<Todo> todoList = todoService.getTodos(userId);
+    public ResponseEntity<List<Todo>> getTodos(HttpServletRequest request){
+        String userIdFromToken = (String) request.getAttribute("userId");
+        List<Todo> todoList = todoService.getTodos(Long.parseLong(userIdFromToken));
         return ResponseEntity.status(HttpStatus.OK).body(todoList);
     }
 
