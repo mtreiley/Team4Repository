@@ -13,4 +13,5 @@ public interface SubtaskRepo extends JpaRepository<Subtask, Long> {
     List<Subtask> findByTodoId(Long todoId);
     //Can be changed to return Integer if that is more appropriate for todo_id
     Optional<Subtask> findByTitle(String credential);
+    void deleteByTodoId(Long todoId);
 }

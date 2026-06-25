@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.teamtetra.todoapp.entity.Todo;
 import com.teamtetra.todoapp.exception.AddTodoFailure;
+import com.teamtetra.todoapp.repo.SubtaskRepo;
 import com.teamtetra.todoapp.repo.TodoRepo; //Switch later
 import com.teamtetra.todoapp.repo.UserRepo;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class TodoService {
     private final TodoRepo todoRepo;
     private final UserRepo userRepo;
+    private final SubtaskRepo subtaskRepo;
 
     public void addTodo(Todo todo, Long userId){
         //check for existing user
@@ -29,10 +32,12 @@ public class TodoService {
         }
     }
 
+    @Transactional // Makes the delete todo and subtasks one database operation
     public void deleteTodo(Todo todo){
 
         if (todoRepo.findById(todo.getTodoId()).isPresent())
         {
+            subtaskRepo.deleteByTodoId(todo.getTodoId());
             todoRepo.delete(todo);
         }
         else{
