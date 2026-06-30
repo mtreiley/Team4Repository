@@ -11,7 +11,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @IncludeEngines("cucumber")//This tells Junit to let Cucumber facilitate the tests associated with this class
 @SelectPackages({"features","com.teamtetra.todoapp.cucumber.steps"})//This tells junit to include the features directory of "resources" and the steps package as part of the suite
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.teamtetra.todoapp.cucumber.steps")//This tells CUCUMBER where the code associated with the acceptance criteria is located
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:build/reports/cucumber/cucumber-report.html")//This tells Cucumber to create an html test report
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:reports/cucumber-report.html")//This tells Cucumber to create an html test report
 public class CucumberRunner {
     
 }
