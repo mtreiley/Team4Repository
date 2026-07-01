@@ -1,7 +1,6 @@
 package com.teamtetra.todoapp.rest;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,14 +15,13 @@ import io.restassured.http.ContentType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-public class RestAssuredTests {
-    
+public class RestAssuredDemo {
+
   // Make sure you save the random port the web server is running on in a variable
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
   @BeforeEach
-  void setup(){
+  void setup() {
     // we can specify where we want all of our requests to be sent
     RestAssured.baseURI = "http://localhost";
     // we can specify the port for the requests
@@ -31,12 +29,12 @@ public class RestAssuredTests {
   }
 
   @Test
-  void simpleRestAssuredTest(){
+  void simpleRestAssuredTest() {
 
     // test data
     User testUser = new User();
     testUser.setUsername("Username");
-    testUser.setPassword("P0ssword!");
+    testUser.setPassword("P0ssword");
 
     /*
       Rest Assured tests have a three part struture that follows a given/when/then pattern.
@@ -45,15 +43,30 @@ public class RestAssuredTests {
       - then() = this method gives us access to the response and lets us validate it
     */
 
-    // the given() let's us set up the headers, body, cookies, any sort of pre-conditions needed for us to make the request
+    // the given() let's us set up the headers, body, cookies, any sort of pre-conditions needed for
+    // us to make the request
     given()
-      .contentType(ContentType.JSON)
-      .body(testUser)
-    // the when() is where we decide what type of request we are actually making and the endpoint we are hitting
-    .when()
-      .post("/register")
-    // the then() is where we perform our validation
-    .then()
-      .statusCode(201);
+        .contentType(ContentType.JSON)
+        .body(testUser)
+        // the when() is where we decide what type of request we are actually making and the
+        // endpoint we are hitting
+        .when()
+        .post("/register")
+        // the then() is where we perform our validation
+        .then()
+        .statusCode(201);
+  }
+
+  @Test
+  void failingTest() {
+    // this will fail since user has no username or password for the registration
+    User badCredentials = new User();
+    given()
+        .contentType(ContentType.JSON)
+        .body(badCredentials)
+        .when()
+        .post("/register")
+        .then()
+        .statusCode(201);
   }
 }

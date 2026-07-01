@@ -1,7 +1,20 @@
-Feature: Todo App Registration
-    Scenario: Users can register with valid credentials
+ Feature: Todo App Registration
+
+    Background: all users navigate to the registration page
         Given   The user is on the login page
         When    The user clicks the registration link
+    
+    Scenario: Users can register with valid credentials
         And     The user enters valid crendentials
         And     The user clicks the register button
         Then    The user should see a success message
+
+    Scenario Outline: Users can not register with invalid credentials
+        And     The user enters username "<username>" and password "<password>"
+        And     The user clicks the register button
+        Then    The user should see failure message "<message>"
+
+    Examples:
+    |username|password|message|
+    |shrt|P0ssword|Username should be between 5 and 15 characters|
+    |Thisiswaytoolong|P0ssword|Username should be between 5 and 15 characters|
